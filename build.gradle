@@ -13,6 +13,6 @@ dependencies {
 }
 
 
-task teste(teste:Teste) {
+task teste(type:Test) {
     
 }
