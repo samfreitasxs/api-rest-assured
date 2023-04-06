@@ -3,8 +3,11 @@
  */
 package automation.rest.asure;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -14,6 +17,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 
 public class AppTest {
+
+    @BeforeClass
+    public static void setup() {
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+    }
     @Test public void testeListMetadadosDoUsuario() {
         when().
                 get("https://reqres.in/api/users?page=2").
@@ -25,8 +33,7 @@ public class AppTest {
 
     @Test
     public void testeCriarUsuarioComSucesso(){
-        given().log().all().
-                contentType(ContentType.JSON).
+        given().
                 body("{\n" +
                         "    \"name\": \"samuel\",\n" +
                         "    \"job\": \"eng test\"\n" +
