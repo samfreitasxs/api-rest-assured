@@ -34,14 +34,12 @@ public class AppTest {
     @Test
     public void testeCriarUsuarioComSucesso(){
         given().
-                body("{\n" +
-                        "    \"name\": \"samuel\",\n" +
-                        "    \"job\": \"eng test\"\n" +
-                        "}").
+                contentType(ContentType.JSON).
+                body("{\n" + " \"name\": \"larissa\",\n" + " \"job\": \"eng test\"\n" + "}").
         when().
             post("https://reqres.in/api/users").
         then().
             statusCode(HttpStatus.SC_CREATED).
-            body("name", is( "samuel"));
+            body("name", is( "larissa"));
     }
 }
