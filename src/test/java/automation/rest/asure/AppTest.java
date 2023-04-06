@@ -3,9 +3,11 @@
  */
 package automation.rest.asure;
 
+import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -19,5 +21,20 @@ public class AppTest {
             statusCode(HttpStatus.SC_OK).
             body("page", is(2)).
             body("data", is(notNullValue()));
+    }
+
+    @Test
+    public void testeCriarUsuarioComSucesso(){
+        given().log().all().
+                contentType(ContentType.JSON).
+                body("{\n" +
+                        "    \"name\": \"samuel\",\n" +
+                        "    \"job\": \"eng test\"\n" +
+                        "}").
+        when().
+            post("https://reqres.in/api/users").
+        then().
+            statusCode(HttpStatus.SC_CREATED).
+            body("name", is( "samuel"));
     }
 }
