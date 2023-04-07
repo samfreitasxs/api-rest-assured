@@ -6,30 +6,34 @@ package automation.rest.asure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
 
-public class AppTest {
+public class UsuarioTeste {
 
     @BeforeClass
     public static void setup() {
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+                RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+                baseURI = "https://reqres.in";
+                basePath = "/api";
     }
+
+
     @Test public void testeListMetadadosDoUsuario() {
+        given().
+                param("page", "2").
         when().
-                get("https://reqres.in/api/users?page=2").
+                get("/users").
         then().
-            statusCode(HttpStatus.SC_OK).
-            body("page", is(2)).
-            body("data", is(notNullValue()));
+                statusCode(HttpStatus.SC_OK).
+                body("page", is(2)).
+                body("data", is(notNullValue()));
     }
+
 
     @Test
     public void testeCriarUsuarioComSucesso(){
@@ -37,9 +41,9 @@ public class AppTest {
                 contentType(ContentType.JSON).
                 body("{\n" + " \"name\": \"larissa\",\n" + " \"job\": \"eng test\"\n" + "}").
         when().
-            post("https://reqres.in/api/users").
+                post("/user").
         then().
-            statusCode(HttpStatus.SC_CREATED).
-            body("name", is( "larissa"));
+                statusCode(HttpStatus.SC_CREATED).
+                body("name", is( "larissa"));
     }
 }
