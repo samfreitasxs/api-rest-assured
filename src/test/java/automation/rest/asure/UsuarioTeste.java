@@ -3,6 +3,7 @@
  */
 package automation.rest.asure;
 
+import automation.rest.asure.dominio.Usuario;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -37,13 +38,14 @@ public class UsuarioTeste {
 
     @Test
     public void testeCriarUsuarioComSucesso(){
+        Usuario usuario = new Usuario("Samuel","eng test" );
         given().
                 contentType(ContentType.JSON).
-                body("{\n" + " \"name\": \"larissa\",\n" + " \"job\": \"eng test\"\n" + "}").
+                body(usuario).
         when().
                 post("/user").
         then().
                 statusCode(HttpStatus.SC_CREATED).
-                body("name", is( "larissa"));
+                body("name", is( "Samuel"));
     }
 }
