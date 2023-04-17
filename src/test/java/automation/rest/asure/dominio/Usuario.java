@@ -3,18 +3,18 @@ package automation.rest.asure.dominio;
 public class Usuario {
     private String name;
     private String job;
+    private String email;
     public Usuario(){ }
 
-    public Usuario(String name, String job) {
+    public Usuario(String name, String job, String email) {
         this.name = name;
         this.job = job;
+        this.job = email;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
+    public String getJob() {return job;}
+    public String getEmail() {return email;}
 
-    public String getJob() {
-        return job;
-    }
+    public void setEmail(String email) {this.email = email;}
 }
